@@ -1,21 +1,19 @@
 import "./App.css";
-import { Title } from "./components/Title.tsx";
-import { Flex } from "./components/Flex.tsx";
 import { Console } from "./components/Console.tsx";
 import { Button } from "./components/Button.tsx";
 
 function App() {
   return (
     <div className="w-full min-h-screen p-8 bg-black">
-      <Flex justify="center">
-        <Title>Console cmd 2024. Andrey999K</Title>
-      </Flex>
-      <Flex direction="column" margin="10px 0">
+      <div className="flex flex-row justify-center items-stretch m-0">
+        <h1 className="text-green">Console cmd 2024. Andrey999K</h1>
+      </div>
+      <div className="flex flex-col my-[10px]">
         <Console />
         <Button outlined align="flex-end">
           Добавить
         </Button>
-      </Flex>
+      </div>
     </div>
   );
 }

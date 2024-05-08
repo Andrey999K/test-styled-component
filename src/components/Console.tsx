@@ -1,6 +1,5 @@
 import styled from "styled-components";
-import { Flex } from "./Flex.tsx";
-import React, { useState, KeyboardEvent } from "react";
+import React, { KeyboardEvent, useState } from "react";
 import { Line } from "./Line.tsx";
 
 const StyledConsole = styled.textarea<ConsoleProps>`
@@ -36,15 +35,15 @@ export const Console: React.FC<ConsoleProps> = ({ color, ...props }) => {
   };
 
   return (
-    <Flex>
-      <Flex direction="column" margin="0 10px">
+    <div className="flex flex-row items-stretch justify-stretch m-0">
+      <div className="flex flex-col items-stretch justify-stretch mx-[10px]">
         {lines.map((line, index) => (
           <Line key={index} color={color}>
             {line}
           </Line>
         ))}
-      </Flex>
+      </div>
       <StyledConsole onKeyDown={onKeyPress} {...props} color={color} />
-    </Flex>
+    </div>
   );
 };
