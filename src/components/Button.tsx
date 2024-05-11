@@ -1,41 +1,4 @@
-import styled, { css, keyframes } from "styled-components";
 import React, { ReactNode } from "react";
-
-const rotateAnimation = keyframes`
-  0% {
-    transform: rotateZ(0deg);
-  }
-  100% {
-    transform: rotateZ(360deg);
-  }
-`;
-
-const StyledButton = styled.button<ButtonProps>`
-  border: none;
-  padding: 10px 15px;
-  font-size: 18px;
-  cursor: pointer;
-  &:focus {
-    outline: none;
-  }
-  &:hover {
-    animation: ${rotateAnimation} 1s infinite linear;
-  }
-  align-self: ${props => props.align || "stretch"};
-  ${props =>
-    props.primary &&
-    css`
-      color: ${props.color || props.theme.colors.primary || "white"};
-      background: ${props.background || props.theme.colors.primary || "white"};
-    `};
-  ${props =>
-    props.outlined &&
-    css`
-      color: ${props.color || props.theme.colors.primary || "white"};
-      border: 1px solid ${props.color || props.theme.colors.primary || "white"};
-      background: transparent;
-    `};
-`;
 
 type ButtonProps = {
   align?: string;
@@ -46,10 +9,25 @@ type ButtonProps = {
   children?: ReactNode | ReactNode[];
 };
 
-// const LargeButton = styled(StyledButton)`
-//   font-size: 32px;
-// `;
-
-export const Button: React.FC<ButtonProps> = props => {
-  return <StyledButton {...props} />;
+export const Button: React.FC<ButtonProps> = ({
+  align,
+  primary,
+  color,
+  background,
+  outlined,
+  children
+}) => {
+  const classColor = `text-${color || "primary"}`;
+  const borderColor = color ? `border-[${color}]` : "border-primary";
+  const classAlign = align ? `self-${align}` : "self-stretch";
+  const classBackground = background ? `bg-[${background}]` : "bg-primary";
+  const classes = `
+  ${
+    outlined
+      ? `${classColor} border-[1px] border-solid ${borderColor}`
+      : "border-none"
+  }
+  ${primary ? `${classColor} ${classBackground}` : ""}
+  py-[10px] px-[15px] text-[18px] cursor-pointer focus:outline-none ${classAlign} hover:animate-spin`;
+  return <div className={classes}>{children}</div>;
 };
