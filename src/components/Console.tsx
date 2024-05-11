@@ -1,25 +1,5 @@
-import styled from "styled-components";
 import React, { KeyboardEvent, useState } from "react";
 import { Line } from "./Line.tsx";
-
-const StyledConsole = styled.textarea<ConsoleProps>`
-  width: 100%;
-  height: 70vh;
-  background: black;
-  font-size: 24px;
-  border: none;
-  color: ${({ color, theme }) => color || theme.colors.primary || "white"};
-  resize: none;
-  &:focus {
-    outline: none;
-  }
-  @media screen and ${props => props.theme.media.phone} {
-    border: 1px solid red;
-  }
-  @media screen and ${props => props.theme.media.tablet} {
-    border: 1px solid green;
-  }
-`;
 
 type ConsoleProps = {
   color?: string;
@@ -27,6 +7,8 @@ type ConsoleProps = {
 
 export const Console: React.FC<ConsoleProps> = ({ color, ...props }) => {
   const [lines, setLines] = useState(["C:/users/Andrey999K>"]);
+
+  const textColorClass = `text-${color || "primary"}`;
 
   const onKeyPress = (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter") {
@@ -43,7 +25,11 @@ export const Console: React.FC<ConsoleProps> = ({ color, ...props }) => {
           </Line>
         ))}
       </div>
-      <StyledConsole onKeyDown={onKeyPress} {...props} color={color} />
+      <textarea
+        {...props}
+        className={`w-full h-[70vh] bg-black text-2xl leading-9 border-[1px] border-solid border-red-500 sm:border-primary md:border-none ${textColorClass} resize-none focus:outline-none`}
+        onKeyDown={onKeyPress}
+      ></textarea>
     </div>
   );
 };
